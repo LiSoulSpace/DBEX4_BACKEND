@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.soulspace.connect_test.mapper.SCMapper">
+    <select id="selectSC" resultType="SC" parameterType="map">
+        select *
+        from st.sc
+        <where>
+            <if test="sno!=null">
+                sno = #{sno}
+            </if>
+            <if test="sclass != null">
+                AND sclass = #{sclass}
+            </if>
+            <if test="cno != null">
+                AND cno = #{cno}
+            </if>
+            <if test="grade != null">
+                AND grade = #{grade}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateSC" parameterType="map">
+        update st.sc
+        set grade = #{grade}
+        where sno = #{sno}
+          AND cno = #{cno}
+          AND sclass = #{sclass}
+    </update>
+
+    <delete id="deleteSC" parameterType="map">
+        delete
+        from st.sc
+        where sclass = #{sclass}
+          AND sno = #{sno}
+          AND cno = #{cno}
+    </delete>
+
+    <insert id="insertSC" parameterType="Class">
+        insert into st.sc (sclass, sno, cno, grade)
+        VALUES (#{sclass}, #{sno}, #{cno}, #{grade})
+    </insert>
+</mapper>

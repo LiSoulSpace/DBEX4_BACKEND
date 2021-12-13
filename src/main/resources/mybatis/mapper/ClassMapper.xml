@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.soulspace.connect_test.mapper.ClassMapper">
+    <!--查询课程-->
+    <select id="selectClasses" resultType="Class" parameterType="map">
+        select *
+        from st.c
+        <where>
+            <if test="cno != null">
+                cno = #{cno}
+            </if>
+            <if test="cname != null">
+                AND cname = #{cname}
+            </if>
+        </where>
+    </select>
+
+    <!--更新课程-->
+
+    <update id="updateClass" parameterType="map">
+        update st.c
+        <set>
+            <if test="cname != null">cname=#{cname},</if>
+            <if test="cpno != null">cpno=#{cpno},</if>
+            <if test="ccredit != null">ccredit=#{ccredit}</if>
+        </set>
+        where cno = #{cno}
+    </update>
+
+    <!--删除课程-->
+
+    <delete id="deleteClass" parameterType="map">
+        delete
+        from st.c
+        where cno = #{cno}
+    </delete>
+
+    <!--添加课程-->
+    <insert id="insertClass" parameterType="Class">
+        insert into st.c (cno, cname, cpno, ccredit)
+        VALUES (#{cno}, #{cname}, #{cpno}, #{ccredit})
+    </insert>
+</mapper>

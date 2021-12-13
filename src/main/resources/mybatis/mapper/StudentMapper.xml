@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.soulspace.connect_test.mapper.StudentMapper">
+    <select id="getStudentsByCAN" resultType="Student" parameterType="map">
+        select *
+        from st.s
+        <where>
+            <if test="sclass != null">
+                sclass = #{sclass}
+            </if>
+            <if test="sno != null">
+                AND sno = #{sno}
+            </if>
+            <if test="sname != null">
+                AND sname = #{sname}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateStudent" parameterType="map">
+        update st.s
+        <set>
+            <if test="sname != null">sname=#{sname},</if>
+            <if test="ssex != null">ssex=#{ssex},</if>
+            <if test="sage != null">sage=#{sage},</if>
+            <if test="Sdept != null">Sdept=#{Sdept}</if>
+        </set>
+        where sclass = #{sclass}
+        and sno = #{sno}
+    </update>
+
+    <delete id="deleteStudent" parameterType="map">
+        delete
+        from st.s
+        where sno = #{sno}
+          AND sclass = #{sclass}
+    </delete>
+
+    <insert id="insertStudent" parameterType="Student">
+        insert into st.s (sclass, sno, sname, ssex, sage, Sdept)
+        values (#{sclass}, #{sno}, #{sname}, #{ssex}, #{sage}, #{Sdept});
+    </insert>
+</mapper>
